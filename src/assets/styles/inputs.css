@@ -1,0 +1,52 @@
+.time {
+  display: flex;
+}
+
+.time > .indicator {
+  cursor: default;
+}
+
+.time > .indicator.active {
+  background-color: #b5dce9;
+  padding: 0 4px;
+}
+
+.time .button {
+  background-color: #d6ecf3;
+  line-height: 1.25;
+  padding: 0 8px;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.time .button:hover {
+  background-color: #b5dce9;
+}
+
+.file-label {
+  overflow: hidden;
+  position: relative;
+}
+
+.file-label > [type=file] {
+  cursor: pointer;
+  min-height: 100%;
+  min-width: 100%;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.file-label > .progress {
+  position: absolute;
+  bottom: 0;
+  height: 5px;
+  width: 100%;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: var(--bs-primary);
+}
