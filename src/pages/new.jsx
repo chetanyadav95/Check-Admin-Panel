@@ -17,6 +17,7 @@ const Question = () => {
   const [ subject, setSubject ] = useState('')
   const [ type, setType ] = useState('')
   const [ year, setYear ] = useState('')
+  const [ set, setSet ] = useState('')
 
   const subjects = departments.filter(result => result.code === department)[0].subjects
 
@@ -27,7 +28,7 @@ const Question = () => {
     if (type === 'series') selectedYear = Type.SERIES
     if (type === 'quiz') selectedYear = Type.QUIZ
 
-    push('/new/question', { department, subject, year: selectedYear })
+    push('/new/question', { department, subject, year: selectedYear, set })
   }
 
   return (
@@ -63,17 +64,25 @@ const Question = () => {
 
         <div className="col">
           {type === 'previous' && (
-            <Select label="Year" value={year} onChange={setYear} vertical>
-              {years.map(year => (
-                <option key={year} value={year}>{year}</option>
-              ))}
-            </Select>
+            <>
+              <Select label="Year" value={year} onChange={setYear} vertical>
+                {years.map(year => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </Select>
+
+              <Select label="Set" value={set} onChange={setSet} vertical>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </Select>
+            </>
           )}
         </div>
       </div>
 
       <div className="d-flex justify-content-end">
-        <Submit width="25" disabled={!subject || !type || type === 'previous' && !year} />
+        <Submit width="25" disabled={!subject || !type || type === 'previous' && (!year || !set)} />
       </div>
     </form>
   )

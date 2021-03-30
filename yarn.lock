@@ -315,6 +315,7 @@ __metadata:
     prop-types: ^15.7.2
     react: ^17.0.0
     react-dom: ^17.0.0
+    react-math-view: ^1.2.0
     react-router-dom: ^5.2.0
     vite: ^2.0.5
   languageName: unknown
@@ -1012,6 +1013,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"lodash.isequal@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.isequal@npm:4.5.0"
+  checksum: 5b47e094641c18a915497343894c66f7da6aebb9aaa2a3fcc5643455aaf29d19df60ebbed664c8374fb959c8b4ce96810ee6becd8a71ac58c6c2ca8d29762947
+  languageName: node
+  linkType: hard
+
 "lodash@npm:^4.17.19":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
@@ -1312,6 +1320,19 @@ fsevents@~2.3.1:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 11bcf1267a314a522615f626f3ce3727a3a24cdbf61c4d452add3550a7875326669631326cfb1ba3e92b6f72244c32ffecf93ad21c0cad8455d3e169d0e3f060
+  languageName: node
+  linkType: hard
+
+"react-math-view@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "react-math-view@npm:1.2.0"
+  dependencies:
+    lodash.isequal: ^4.5.0
+    mathlive: ^0.59.0
+  peerDependencies:
+    react: ^16.0.0
+    react-dom: ^17.0.1
+  checksum: d5e5cd3b700deca460286c92bc3a027be6fe866950f23b9110c024d1e2bfbf6dd04027efa5a2b9cb9637437de81cda310d533d6895c0901c9f32e5f43f425eed
   languageName: node
   linkType: hard
 

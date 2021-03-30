@@ -73,9 +73,9 @@ const QuestionView = () => {
             </p>
 
             <p>
-              {questionType(question.year)}
+              {questionType(question.year)}{question.set && `, Set ${question.set}`}
             </p>
-
+            
             <div className="d-flex">
               <p className="small text-muted">
                 Posted By: {question.postedBy.username}
@@ -84,7 +84,7 @@ const QuestionView = () => {
               <span className="spacer" />
 
               <p className="small text-muted">
-                Reviewed By: {question.reviewed ? question.reviewedBy.username : 'Not Reviewed'}
+                Reviewed By: {question.reviewedBy ? question.reviewedBy.username : 'Not Reviewed'}
               </p>
             </div>
           </div>
@@ -105,7 +105,7 @@ const QuestionView = () => {
             </div>
 
             <div className="col">
-              {!question.reviewed && (
+              {!question.reviewedBy && (
                 <Button width="100" color="success" onClick={review}>
                   Review
                 </Button>

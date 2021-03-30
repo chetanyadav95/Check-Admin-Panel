@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom'
 import '../assets/styles/layouts.css'
 import { useDepartments } from '../store/application'
 import { IMAGES, QUESTIONS, useFetch } from '../utilities/apis'
+import { Type } from '../utilities/constants'
+import { years } from '../utilities/helpers'
 import { Button } from './buttons'
 import { Markup, Score } from './displays'
 import { Select } from './inputs'
@@ -154,20 +156,26 @@ const Selector = ({ type, questions, onChange }) => {
   const [ data, setData ] = useState([])
   const [ selected, setSelected ] = useState([])
   const [ subject, setSubject ] = useState('')
+  const [ year, setYear ] = useState('')
+  const [ mode, setMode ] = useState('')
+  const [ marks, setMarks ] = useState('')
 
   const subjects = departments.filter(result => result.code === department)[0].subjects
-  const baseUrl = QUESTIONS + `all/?year=${type}&department=${department}`
+  const baseUrl = QUESTIONS + `all/?department=${department}`
 
   useEffect(() => {
     let url = baseUrl
 
     if (subject) url += `&subject=${subject}`
+    if (year) url += `&year=${year}`
+    if (mode) url += `&mode=${mode}`
+    if (marks) url += `&marks=${marks}`
     
     get(url, (error, response) => {
       if (error) return
       setData(response)
     })
-  }, [ subject ])
+  }, [ subject, year, mode, marks ])
 
   function closeDialog() {
     setSelected([])
@@ -256,14 +264,38 @@ const Selector = ({ type, questions, onChange }) => {
 
       <Modal title="Select Questions" size="fullscreen" show={show} onClose={closeDialog} onDone={setQuestions}>
         <div className="mx-5">
-          <div className="d-flex flex-column align-items-center mt-3">
-            <Select label="Subject" value={subject} onChange={setSubject}>
-              {subjects.map(subject => (
-                <option key={subject.code} value={subject.code}>
-                  {subject.title}
-                </option>
-              ))}
-            </Select>
+          <div className="row">
+            <div className="col">
+              <Select label="Subject" value={subject} onChange={setSubject} vertical>
+                {subjects.map(subject => (
+                  <option key={subject.code} value={subject.code}>
+                    {subject.title}
+                  </option>
+                ))}
+              </Select>
+
+              <Select label="Marks" value={marks} onChange={setMarks} vertical>
+                {[1, 2].map(mark => (
+                  <option key={mark} value={mark}>{mark}</option>
+                ))}
+              </Select>
+            </div>
+
+            <div className="col">
+              <Select label="Year" value={year} onChange={setYear} vertical>
+                <option value={Type.SERIES}>Test Series</option>
+                <option value={Type.QUIZ}>Quiz</option>
+                
+                {years.map(year => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </Select>
+
+              <Select label="Mode" value={mode} onChange={setMode} vertical>
+                <option value="answer">Answer</option>
+                <option value="choices">Options</option>
+              </Select>
+            </div>
           </div>
           
           <hr className="mb-4" />

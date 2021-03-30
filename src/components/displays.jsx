@@ -38,10 +38,10 @@ const Markup = ({ label, latex, className }) => {
       if (word.includes('/eqtn')) {
         try {
           newWord = convertLatexToMarkup(word.slice(5), {
-            mathstyle: 'textstyle',
+            mathstyle: 'displaystyle',
           })
         } catch (error) {
-          console.log(error.message)
+          console.log('Conversion Error', error.message)
         }
       }
 
