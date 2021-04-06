@@ -81,7 +81,7 @@ const Equation = ({ inputRef, onEntered }) => {
   }
 
   function getLatex() {
-    onEntered(`/eqtn${equation} `)
+    onEntered(`/eqtn${equation.replace(/\s+/g, '')} `)
     closeDialog()
   }
 
