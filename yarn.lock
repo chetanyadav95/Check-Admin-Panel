@@ -314,6 +314,7 @@ __metadata:
     mathlive: ^0.59.0
     prop-types: ^15.7.2
     react: ^17.0.0
+    react-aws-s3: ^1.5.0
     react-dom: ^17.0.0
     react-math-view: ^1.2.0
     react-router-dom: ^5.2.0
@@ -353,6 +354,13 @@ __metadata:
   dependencies:
     color-convert: ^1.9.0
   checksum: 456e1c23d9277512a47718da75e7fbb0a5ee215ef893c2f76d6b3efe8fceabc861121b80b0362146f5f995d21a1633f05a19bbf6283ae66ac11dc3b9c0bed779
+  languageName: node
+  linkType: hard
+
+"any-base@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "any-base@npm:1.1.0"
+  checksum: e04b8f072c8ff137dd2cdb75002424d61709f0f3cd1aa1a11ab528658299112abd868e6d71669024bc4d0c74c1d3fee5b2186560806fcc0640b974f19668ea3d
   languageName: node
   linkType: hard
 
@@ -556,6 +564,13 @@ __metadata:
   version: 1.0.2
   resolution: "core-util-is@npm:1.0.2"
   checksum: 089015ee3c462dfceba70faa1df83b42a7bb35db26dae6af283247b06fe3216c65fccd9f00eebcaf98300dc31e981d56aae9f90b624f8f6ff1153e235ff88b65
+  languageName: node
+  linkType: hard
+
+"crypto-js@npm:^3.1.9-1":
+  version: 3.3.0
+  resolution: "crypto-js@npm:3.3.0"
+  checksum: 7cf8de489f9f25084a3b22cc6e944e2e11e03b6374777a7a554739ee27e3b35d5dfdac490e0a66bc191c9ecbbea13ad716f59345657335b39d95f9bc19c40ac5
   languageName: node
   linkType: hard
 
@@ -1303,6 +1318,16 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"react-aws-s3@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "react-aws-s3@npm:1.5.0"
+  dependencies:
+    crypto-js: ^3.1.9-1
+    short-uuid: ^3.1.0
+  checksum: 2c8eba87cafc73099abb46215d13348377c6a37d524f05a16b702f41629ffb4c9317b0c7365d3810449c77c296a75b5f8469298999c24e284d8819f3a5d2f0ee
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^17.0.0":
   version: 17.0.1
   resolution: "react-dom@npm:17.0.1"
@@ -1547,6 +1572,16 @@ resolve@^1.19.0:
   version: 2.0.0
   resolution: "set-blocking@npm:2.0.0"
   checksum: 0ac2403b0c2d39bf452f6d5d17dfd3cb952b9113098e1231cc0614c436e2f465637e39d27cf3b93556f5c59795e9790fd7e98da784c5f9919edeba4295ffeb29
+  languageName: node
+  linkType: hard
+
+"short-uuid@npm:^3.1.0":
+  version: 3.1.1
+  resolution: "short-uuid@npm:3.1.1"
+  dependencies:
+    any-base: ^1.1.0
+    uuid: ^3.3.2
+  checksum: 76b52d11a8f7668c5e52371d022dcf0333ca048fdf9f01d1355404f31184b0f936478de227f76e6d5ed6d7a41d898ac92e837b5c900581259d00eebf23aff7f5
   languageName: node
   linkType: hard
 

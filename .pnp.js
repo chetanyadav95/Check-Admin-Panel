@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mathlive", "npm:0.59.0"],
             ["prop-types", "npm:15.7.2"],
             ["react", "npm:17.0.1"],
+            ["react-aws-s3", "npm:1.5.0"],
             ["react-dom", "virtual:7f0f7e8da996c6611fedc2eefcfbfbb5bbcfc606eeb73b9ab6c24d9bc872ef307681a74dfe14e363f41c7441fb3a075cca0714dd0d46f39b526685692269b78e#npm:17.0.1"],
             ["react-math-view", "virtual:7f0f7e8da996c6611fedc2eefcfbfbb5bbcfc606eeb73b9ab6c24d9bc872ef307681a74dfe14e363f41c7441fb3a075cca0714dd0d46f39b526685692269b78e#npm:1.2.0"],
             ["react-router-dom", "virtual:7f0f7e8da996c6611fedc2eefcfbfbb5bbcfc606eeb73b9ab6c24d9bc872ef307681a74dfe14e363f41c7441fb3a075cca0714dd0d46f39b526685692269b78e#npm:5.2.0"],
@@ -426,6 +427,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mathlive", "npm:0.59.0"],
             ["prop-types", "npm:15.7.2"],
             ["react", "npm:17.0.1"],
+            ["react-aws-s3", "npm:1.5.0"],
             ["react-dom", "virtual:7f0f7e8da996c6611fedc2eefcfbfbb5bbcfc606eeb73b9ab6c24d9bc872ef307681a74dfe14e363f41c7441fb3a075cca0714dd0d46f39b526685692269b78e#npm:17.0.1"],
             ["react-math-view", "virtual:7f0f7e8da996c6611fedc2eefcfbfbb5bbcfc606eeb73b9ab6c24d9bc872ef307681a74dfe14e363f41c7441fb3a075cca0714dd0d46f39b526685692269b78e#npm:1.2.0"],
             ["react-router-dom", "virtual:7f0f7e8da996c6611fedc2eefcfbfbb5bbcfc606eeb73b9ab6c24d9bc872ef307681a74dfe14e363f41c7441fb3a075cca0714dd0d46f39b526685692269b78e#npm:5.2.0"],
@@ -469,6 +471,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["ansi-styles", "npm:3.2.1"],
             ["color-convert", "npm:1.9.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["any-base", [
+        ["npm:1.1.0", {
+          "packageLocation": "./.yarn/cache/any-base-npm-1.1.0-1f3e797fba-e04b8f072c.zip/node_modules/any-base/",
+          "packageDependencies": [
+            ["any-base", "npm:1.1.0"]
           ],
           "linkType": "HARD",
         }]
@@ -711,6 +722,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/core-util-is-npm-1.0.2-9fc2b94dc3-089015ee3c.zip/node_modules/core-util-is/",
           "packageDependencies": [
             ["core-util-is", "npm:1.0.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["crypto-js", [
+        ["npm:3.3.0", {
+          "packageLocation": "./.yarn/cache/crypto-js-npm-3.3.0-5b307000b5-7cf8de489f.zip/node_modules/crypto-js/",
+          "packageDependencies": [
+            ["crypto-js", "npm:3.3.0"]
           ],
           "linkType": "HARD",
         }]
@@ -1600,6 +1620,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["react-aws-s3", [
+        ["npm:1.5.0", {
+          "packageLocation": "./.yarn/cache/react-aws-s3-npm-1.5.0-d3bd49906d-2c8eba87ca.zip/node_modules/react-aws-s3/",
+          "packageDependencies": [
+            ["react-aws-s3", "npm:1.5.0"],
+            ["crypto-js", "npm:3.3.0"],
+            ["short-uuid", "npm:3.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["react-dom", [
         ["npm:17.0.1", {
           "packageLocation": "./.yarn/cache/react-dom-npm-17.0.1-588d0088ca-6a70028fbe.zip/node_modules/react-dom/",
@@ -1884,6 +1915,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/set-blocking-npm-2.0.0-49e2cffa24-0ac2403b0c.zip/node_modules/set-blocking/",
           "packageDependencies": [
             ["set-blocking", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["short-uuid", [
+        ["npm:3.1.1", {
+          "packageLocation": "./.yarn/cache/short-uuid-npm-3.1.1-dbc3479bb5-76b52d11a8.zip/node_modules/short-uuid/",
+          "packageDependencies": [
+            ["short-uuid", "npm:3.1.1"],
+            ["any-base", "npm:1.1.0"],
+            ["uuid", "npm:3.4.0"]
           ],
           "linkType": "HARD",
         }]
