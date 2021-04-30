@@ -1,7 +1,6 @@
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Children, useState } from 'react'
-import S3 from 'react-aws-s3'
 import '../assets/styles/inputs.css'
 import { useFetch } from '../utilities/apis'
 import { Button } from './buttons'
@@ -182,26 +181,26 @@ const Image = ({ className, onError, onUpload }) => {
   
   const [ progress, setProgress] = useState(0)
 
-  const S3Client = new S3({
+  /*const S3Client = new S3({
     bucketName: 'set2score',
     region: 'ap-south-1',
     accessKeyId: 'AKIAWE63H53ZT4SURBJY',
     secretAccessKey: '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',
-  })
+  })*/
 
   function onChange(target) {
     setProgress(0)
 
-    //upload(target.files[0], (error, progress, result) => {
-      //if (error) return onError(error)
-      //if (progress !== null) setProgress(progress)
-      //if (result) onUpload(result)
-    //})
-
+    upload(target.files[0], (error, progress, result) => {
+      if (error) return onError(error)
+      if (progress !== null) setProgress(progress)
+      if (result) onUpload(result)
+    })
+    /*
     S3Client.uploadFile(target.files[0]).then(data => onUpload(data.location)).catch(error => {
       console.log(error);
       onError(error);
-    });
+    });*/
   }
 
   return (
