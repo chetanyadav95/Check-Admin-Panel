@@ -125,7 +125,7 @@ const Thumb = ({ filename, removable, onDelete }) => {
   
   return (
     <div className="thumb">
-      <img src={IMAGES + `?filename=${filename}`} />
+      <img src={filename} />
       
       {removable && (
         <button type="button" onClick={onClick}>X</button>

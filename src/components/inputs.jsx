@@ -194,7 +194,10 @@ const Image = ({ className, onError, onUpload }) => {
     upload(target.files[0], (error, progress, result) => {
       if (error) return onError(error)
       if (progress !== null) setProgress(progress)
-      if (result) onUpload(result)
+      if (result) {
+        console.log(result)
+        onUpload(result)
+      }
     })
     /*
     S3Client.uploadFile(target.files[0]).then(data => onUpload(data.location)).catch(error => {
