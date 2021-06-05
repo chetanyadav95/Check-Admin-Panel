@@ -75,15 +75,15 @@ const Admin = () => {
           return (
             <>
               <div className="col">
-                <div class="form-check">
+                <div className="form-check">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     value={item.key}
                     id={"checkbox" + (index+1)}
                     name={"checkbox" + (index+1)}
                   />
-                  <label class="form-check-label" for={"checkbox" + (index+1)}>
+                  <label className="form-check-label" for={"checkbox" + (index+1)}>
                     {item.text}
                   </label>
                 </div>
