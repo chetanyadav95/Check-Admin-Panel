@@ -195,7 +195,7 @@ const Image = ({ className, onError, onUpload }) => {
       if (error) return onError(error)
       if (progress !== null) setProgress(progress)
       if (result) {
-        console.log(result)
+        // console.log(result)
         onUpload(result)
       }
     })

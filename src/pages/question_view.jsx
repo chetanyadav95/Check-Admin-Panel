@@ -41,19 +41,13 @@ const QuestionView = () => {
         <>
           <div className="px-3">
             <Markup latex={question.text} />
-
             <Images images={question.images} />
-
             <Options choices={question.choices} />
           </div>
-
           <hr />
-
           <div className="px-3">
             <Score marks={question.marks} label />
-
             <Markup label="Correct Answer:" latex={question.answer} />
-
             {question.choices.map((choice, index) => choice.answer && (
               <p key={index}>Correct Answer: Choice {choiceLabel(index)}</p>
             ))}

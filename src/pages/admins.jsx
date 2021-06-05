@@ -1,75 +1,111 @@
-import React, { useState } from 'react'
-import { Submit } from '../components/buttons'
-import { Fetch } from '../components/displays'
-import { Input, Select } from '../components/inputs'
-import { ADMINS, useFetch } from '../utilities/apis'
-import { Admin as Role } from '../utilities/constants'
+import React, { useState } from "react";
+import { Submit } from "../components/buttons";
+import { Fetch } from "../components/displays";
+import { Input, Select } from "../components/inputs";
+import { ADMINS, useFetch } from "../utilities/apis";
+import { Admin as Role, subjects } from "../utilities/constants";
 
 const Admin = () => {
-  const { post, update } = useFetch()
+  const { post, update } = useFetch();
 
-  const [ username, setUsername ] = useState('')
-  const [ password, setPassword ] = useState('')
-  const [ role, setRole ] = useState('')
-  const [ admins, setAdmins ] = useState([])
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [admins, setAdmins] = useState([]);
 
   function onSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    let permissions = [];
 
-    const data = { username, password, role }
+    for (let i = 1; i <= 10; i++) {
+      if (formData.get("checkbox" + i)) {
+        permissions.push(formData.get("checkbox" + i));
+      }
+    }
 
-    post(ADMINS + 'new', data, (error, result) => {
+    const data = { username, password, role, permissions };
+    post(ADMINS + "new", data, (error, result) => {
       if (error) {
-        return
+        return;
       }
 
-      setAdmins(previous => [...previous, result])
-      setUsername('')
-      setPassword('')
-      setRole('')
-    })
+      setAdmins((previous) => [...previous, result]);
+      setUsername("");
+      setPassword("");
+      setRole("");
+    });
   }
 
   const onChange = (admin, data) => () => {
-    const key = Object.keys(data)[0]
+    const key = Object.keys(data)[0];
 
     let text;
 
-    if (key === 'role') {
-      text = `Change ${admin.username}'s role to ${data[key]}?`
-    } else if (key === 'disabled') {
-      text = `${data[key] ? 'Disable' : 'Enable'} ${admin.username}'s account?`
+    if (key === "role") {
+      text = `Change ${admin.username}'s role to ${data[key]}?`;
+    } else if (key === "disabled") {
+      text = `${data[key] ? "Disable" : "Enable"} ${admin.username}'s account?`;
     } else {
-      text = `Reset ${admin.username}'s password?`
+      text = `Reset ${admin.username}'s password?`;
     }
 
     if (confirm(text)) {
       update(ADMINS + `update/?id=${admin._id}`, data, (error, _) => {
         if (error) {
-          return
+          return;
         }
 
-        if (key === 'password') {
-          return alert(`Success: Password reset to ${data[key]}`)
+        if (key === "password") {
+          return alert(`Success: Password reset to ${data[key]}`);
         }
-  
-        admin[key] = data[key]
-        setAdmins([ ...admins ])
+
+        admin[key] = data[key];
+        setAdmins([...admins]);
       });
     }
-  }
+  };
 
   return (
     <>
       <h5 className="mb-3">Add Admin</h5>
-      
+
       <form className="row row-cols-2 g-3 gx-5" onSubmit={onSubmit}>
+        {subjects.map((item, index) => {
+          return (
+            <>
+              <div className="col">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value={item.key}
+                    id={"checkbox" + (index+1)}
+                    name={"checkbox" + (index+1)}
+                  />
+                  <label class="form-check-label" for={"checkbox" + (index+1)}>
+                    {item.text}
+                  </label>
+                </div>
+              </div>
+            </>
+          );
+        })}
+
         <div className="col">
-          <Input placeholder="Username" value={username} onChange={setUsername} />
+          <Input
+            placeholder="Username"
+            value={username}
+            onChange={setUsername}
+          />
         </div>
 
         <div className="col">
-          <Input placeholder="Password" value={password} onChange={setPassword} />
+          <Input
+            placeholder="Password"
+            value={password}
+            onChange={setPassword}
+          />
         </div>
 
         <div className="col">
@@ -86,7 +122,7 @@ const Admin = () => {
 
       <hr />
 
-      <Fetch url={ADMINS + 'all'} onFetch={setAdmins}>
+      <Fetch url={ADMINS + "all"} onFetch={setAdmins}>
         <table className="table table-bordered caption-top align-middle">
           <caption className="pt-0">Administrators</caption>
 
@@ -95,44 +131,57 @@ const Admin = () => {
               <th className="text-center">#</th>
               <th>Username</th>
               <th>Role</th>
+              <th>Permissions</th>
               <th>Actions</th>
             </tr>
           </thead>
-
           <tbody>
             {admins.map((admin, index) => (
               <tr key={index}>
                 <td className="text-center">{index + 1}</td>
-
                 <td>{admin.username}</td>
-
                 <td>{admin.role}</td>
-
+                <td>{admin.permissions.join(", ")} </td>
                 <td>
                   {admin.role === Role.SENIOR && (
-                    <span className="action down" onClick={onChange(admin, { role: Role.SUPPORT })}>
+                    <span
+                      className="action down"
+                      onClick={onChange(admin, { role: Role.SUPPORT })}
+                    >
                       &#x02193;
                     </span>
                   )}
 
                   {admin.role === Role.SUPPORT && (
-                    <span className="action up" onClick={onChange(admin, { role: Role.SENIOR })}>
+                    <span
+                      className="action up"
+                      onClick={onChange(admin, { role: Role.SENIOR })}
+                    >
                       &#x02191;
                     </span>
                   )}
 
-                  <span className="action back mx-2" onClick={onChange(admin, { password: admin.username })}>
+                  <span
+                    className="action back mx-2"
+                    onClick={onChange(admin, { password: admin.username })}
+                  >
                     &#x02190;
                   </span>
 
                   {admin.disabled && (
-                    <span className="action check" onClick={onChange(admin, { disabled: false })}>
+                    <span
+                      className="action check"
+                      onClick={onChange(admin, { disabled: false })}
+                    >
                       &#x02713;
-                    </span>  
+                    </span>
                   )}
 
                   {!admin.disabled && (
-                    <span className="action delete" onClick={onChange(admin, { disabled: true })}>
+                    <span
+                      className="action delete"
+                      onClick={onChange(admin, { disabled: true })}
+                    >
                       &times;
                     </span>
                   )}
@@ -143,8 +192,8 @@ const Admin = () => {
         </table>
       </Fetch>
     </>
-  )
-}
+  );
+};
 
 const AdminsPage = () => (
   <div className="h-100 overflow-auto">
@@ -156,6 +205,6 @@ const AdminsPage = () => (
       </div>
     </div>
   </div>
-)
+);
 
-export default AdminsPage
+export default AdminsPage;
