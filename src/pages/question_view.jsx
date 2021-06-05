@@ -72,7 +72,7 @@ const QuestionView = () => {
             
             <div className="d-flex">
               <p className="small text-muted">
-                Posted By: {question.postedBy.username}
+                Posted By: {question.postedBy && question.postedBy.username ? question.postedBy.username: "NA" }
               </p>
 
               <span className="spacer" />

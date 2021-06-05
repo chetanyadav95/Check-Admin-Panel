@@ -83,7 +83,7 @@ const Admin = () => {
                     id={"checkbox" + (index+1)}
                     name={"checkbox" + (index+1)}
                   />
-                  <label className="form-check-label" for={"checkbox" + (index+1)}>
+                  <label className="form-check-label" htmlFor={"checkbox" + (index+1)}>
                     {item.text}
                   </label>
                 </div>

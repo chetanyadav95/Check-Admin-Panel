@@ -315,6 +315,7 @@ const Selector = ({ type, questions, onChange }) => {
 
                 <p>Quiz Count: {question.quizzes.length}</p>
               </div>
+              
             </div>
           ))}
         </div>
