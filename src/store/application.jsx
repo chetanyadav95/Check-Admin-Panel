@@ -1,32 +1,34 @@
-import PropTypes from 'prop-types'
-import React, { createContext, useContext, useState } from 'react'
-import { login as LOGIN } from '../utilities/apis'
+import PropTypes from "prop-types";
+import React, { createContext, useContext, useState } from "react";
+import { login as LOGIN } from "../utilities/apis";
 
-const ApplicationContext = createContext()
+const ApplicationContext = createContext();
 
 /**
  * hook for application provider
  */
 
 function useProvider() {
-  const [ user, setUser ] = useState(null)
-  const [ departments, setDepartments ] = useState([])
+  const [user, setUser] = useState(null);
+  const [departments, setDepartments] = useState([]);
 
   const login = (credentials, callback) => {
     LOGIN(credentials, (error, result) => {
-      if (error) return callback(error)
-      setUser(result.user)
-      setDepartments(result.departments)
-      callback(null)
-    })
-  }
+      if (error) return callback(error);
+      if(result && result.user)
+        setUser(result.user);
+      if(result && result.departments)
+        setDepartments(result.departments);
+      callback(null);
+    });
+  };
 
   const logout = () => {
-    setUser(null)
-    setDepartments([])
-  }
+    setUser(null);
+    setDepartments([]);
+  };
 
-  return { user, departments, login, logout }
+  return { user, departments, login, logout };
 }
 
 /**
@@ -34,15 +36,14 @@ function useProvider() {
  */
 
 function useAuth() {
-  const context = useContext(ApplicationContext)
+  const context = useContext(ApplicationContext);
 
   if (context === undefined) {
-    throw new Error('useAuth must be used within ApplicationProvider')
+    throw new Error("useAuth must be used within ApplicationProvider");
   }
+  const { login, logout } = context;
 
-  const { login, logout } = context
-
-  return { login, logout }
+  return { login, logout };
 }
 
 /**
@@ -50,13 +51,13 @@ function useAuth() {
  */
 
 function useUser() {
-  const context = useContext(ApplicationContext)
+  const context = useContext(ApplicationContext);
 
   if (context === undefined) {
-    throw new Error('useUser must be used within ApplicationProvider')
+    throw new Error("useUser must be used within ApplicationProvider");
   }
 
-  return context.user
+  return context.user;
 }
 
 /**
@@ -64,13 +65,13 @@ function useUser() {
  */
 
 function useDepartments() {
-  const context = useContext(ApplicationContext)
+  const context = useContext(ApplicationContext);
 
   if (context === undefined) {
-    throw new Error('useDepartments must be used within ApplicationProvider')
+    throw new Error("useDepartments must be used within ApplicationProvider");
   }
 
-  return context.departments
+  return context.departments;
 }
 
 /**
@@ -79,17 +80,17 @@ function useDepartments() {
  */
 
 const ApplicationProvider = ({ children }) => {
-  const provider = useProvider()
+  const provider = useProvider();
 
   return (
     <ApplicationContext.Provider value={provider}>
       {children}
     </ApplicationContext.Provider>
-  )
-}
+  );
+};
 
 ApplicationProvider.propTypes = {
-  children: PropTypes.object
-}
+  children: PropTypes.object,
+};
 
-export { ApplicationProvider, useAuth, useUser, useDepartments }
+export { ApplicationProvider, useAuth, useUser, useDepartments };

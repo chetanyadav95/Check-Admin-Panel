@@ -17,9 +17,9 @@ async function login(data, callback) {
   })
 
   const result = await response.json()
+  // console.log("result: ", result)
 
   if (!response.ok) {
-    console.log(result)
     return callback(result.error)
   }
 
@@ -48,7 +48,7 @@ function useFetch() {
     const result = await response.json()
 
     if (!response.ok) {
-      console.log(result)
+      // console.log(result)
       return callback(result)
     }
 

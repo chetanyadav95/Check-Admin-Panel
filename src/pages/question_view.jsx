@@ -41,19 +41,13 @@ const QuestionView = () => {
         <>
           <div className="px-3">
             <Markup latex={question.text} />
-
             <Images images={question.images} />
-
             <Options choices={question.choices} />
           </div>
-
           <hr />
-
           <div className="px-3">
             <Score marks={question.marks} label />
-
             <Markup label="Correct Answer:" latex={question.answer} />
-
             {question.choices.map((choice, index) => choice.answer && (
               <p key={index}>Correct Answer: Choice {choiceLabel(index)}</p>
             ))}
@@ -78,7 +72,7 @@ const QuestionView = () => {
             
             <div className="d-flex">
               <p className="small text-muted">
-                Posted By: {question.postedBy.username}
+                Posted By: {question.postedBy && question.postedBy.username ? question.postedBy.username: "NA" }
               </p>
 
               <span className="spacer" />

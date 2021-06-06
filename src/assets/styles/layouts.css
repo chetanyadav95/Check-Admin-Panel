@@ -82,7 +82,7 @@
   display: flex;
 }
 
-.question > .footer > p {
+.question > .footer > p, .view-questions-data {
   color: #6c757d;
   font-size: .875em;
   margin: .5rem 0 0;

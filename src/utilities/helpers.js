@@ -6,7 +6,7 @@ import { Type } from './constants'
 
  function getYears() {
   const years = []
-  const endYear = new Date().getFullYear() - 1
+  const endYear = new Date().getFullYear()
 
   var year = endYear
 

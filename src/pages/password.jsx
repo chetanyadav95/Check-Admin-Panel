@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Submit } from '../components/buttons'
 import { Input } from '../components/inputs'
 import { ADMINS, useFetch } from '../utilities/apis'
+import { useAuth } from '../store/application'
 
 const Password = () => {
   const { update } = useFetch()
@@ -10,6 +11,7 @@ const Password = () => {
   const [ confirmation, setConfirmation ] = useState('')
 
   function onPasswordChange(event) {
+    const auth = useAuth();
     event.preventDefault()
 
     update(ADMINS + 'password', { password }, (error, _) => {
@@ -18,8 +20,10 @@ const Password = () => {
       }
 
       alert('Password Successfully changed')
-      setPassword('')
-      setConfirmation('')
+      auth.logout();
+
+      // setPassword('')
+      // setConfirmation('')
     })
   }
 
