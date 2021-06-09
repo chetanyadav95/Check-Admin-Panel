@@ -36,7 +36,7 @@ const HomePage = () => {
       SetPermissions(data.permissions)
     }
 
-    if (department && permissions.includes(department)) {
+    if ((data && data.role === 'master') || department && permissions.includes(department)) {
       SetHasPermission(false);
     }
     else if(department && !permissions.includes(department)) {
