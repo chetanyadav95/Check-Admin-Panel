@@ -13,7 +13,7 @@ import { Thumb } from './layouts'
 const Error = ({ text }) => {
   if (!text) return null
 
-  return <div className="mt-3 text-danger">{text}</div>
+  return <div className="mt-3 text-danger">{ text }</div>
 }
 
 Error.propTypes = {
@@ -27,7 +27,7 @@ Error.propTypes = {
 const Markup = ({ label, latex, className }) => {
   function markup() {
     const newLatex = latex.replace(/\/dash/g, '______')
-    
+
     let markup = ''
 
     const words = newLatex.split(' ')
@@ -47,15 +47,15 @@ const Markup = ({ label, latex, className }) => {
 
       markup += newWord + ' '
     });
-    
+
     return { __html: markup }
   }
 
   if (!latex) return null
-  
+
   return (
-    <p className={classnames(className)} style={{whiteSpace: 'pre-line'}}>
-      {label && label} <span dangerouslySetInnerHTML={markup()} />
+    <p className={ classnames(className) } style={ { whiteSpace: 'pre-line' } }>
+      { label && label } <span dangerouslySetInnerHTML={ markup() } />
     </p>
   )
 }
@@ -70,21 +70,21 @@ Markup.propTypes = {
  * Displays question choices
  */
 
-const Options = ({ choices, onChange }) => {  
+const Options = ({ choices, onChange }) => {
   const onEdit = choice => () => {
     choice.image = ''
-    onChange([ ...choices ])
+    onChange([...choices])
   }
 
   return choices.map((choice, index) => (
-    <div key={index} className="d-flex">
-      <span>{choiceLabel(index)}</span>
+    <div key={ index } className="d-flex">
+      <span>{ choiceLabel(index) }</span>
 
       <div className="ms-3">
-        <Markup className="mb-0" latex={choice.text} />
-        
-        <div className={classnames(choice.image && index !== choices.length - 1 && 'mb-3', choice.text && choice.image && 'mt-2')}>
-          <Thumb removable={onChange} filename={choice.image} onDelete={onEdit(choice)} />
+        <Markup className="mb-0" latex={ choice.text } />
+
+        <div className={ classnames(choice.image && index !== choices.length - 1 && 'mb-3', choice.text && choice.image && 'mt-2') }>
+          <Thumb removable={ onChange } filename={ choice.image } onDelete={ onEdit(choice) } />
         </div>
       </div>
     </div>
@@ -101,11 +101,10 @@ Options.propTypes = {
  */
 
 const Result = ({ solution, onChange }) => {
-  if (!solution.text && !solution.image) return null
-
-  function onEdit() {
+  function onEdit(value) {
     onChange(previous => {
-      previous.image = ''
+      const images = previous.images.filter(image => image !== value)
+      previous.images = images;
       return { ...previous }
     })
   }
@@ -114,9 +113,13 @@ const Result = ({ solution, onChange }) => {
     <>
       <h6 className="text-decoration-underline">Solution</h6>
 
-      {solution.text && <Markup latex={solution.text} />}
-        
-      <Thumb removable={onChange} filename={solution.image} onDelete={onEdit} />
+      { solution.text && <Markup latex={ solution.text } /> }
+
+      <div className={ classnames('d-flex flex-wrap gap-3', solution.images.length > 0 && 'mb-3') }>
+        { solution.images.map((image, index) => (
+          <Thumb key={ index } removable={ onChange } filename={ image } onDelete={ onEdit } />
+        )) }
+      </div>
     </>
   )
 }
@@ -131,9 +134,9 @@ Result.propTypes = {
  */
 
 const Score = ({ label, marks, className }) => (
-  <p className={className}>
-    {label && 'Total Marks: '}
-    {marks} {marks > 1 ? 'Marks' : 'Mark'}
+  <p className={ className }>
+    { label && 'Total Marks: ' }
+    { marks } { marks > 1 ? 'Marks' : 'Mark' }
   </p>
 )
 
@@ -147,17 +150,17 @@ Score.propTypes = {
  * Displays question images
  */
 
-const Images = ({ images, onChange }) => {    
+const Images = ({ images, onChange }) => {
   function onEdit(image) {
     const filtered = images.filter(value => value !== image)
     onChange([...filtered])
   }
 
   return (
-    <div className={classnames('d-flex flex-wrap gap-3', images.length > 0 && 'mb-3')}>
-      {images.map((image, index) => (
-        <Thumb key={index} removable={onChange} filename={image} onDelete={onEdit} />
-      ))}
+    <div className={ classnames('d-flex flex-wrap gap-3', images.length > 0 && 'mb-3') }>
+      { images.map((image, index) => (
+        <Thumb key={ index } removable={ onChange } filename={ image } onDelete={ onEdit } />
+      )) }
     </div>
   )
 }
@@ -174,7 +177,7 @@ Images.propTypes = {
 const Fetch = ({ url, onFetch, children }) => {
   const { get } = useFetch()
 
-  const [ fetching, setFetching ] = useState(true)
+  const [fetching, setFetching] = useState(true)
 
   useEffect(() => {
     get(url, (error, response) => {
