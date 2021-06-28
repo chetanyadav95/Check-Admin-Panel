@@ -16,13 +16,55 @@ const Questions = () => {
   const departments = useDepartments()
   const subjects = departments.filter(result => result.code === department)[0].subjects
 
+
   const [questions, setQuestions] = useState([])
   
-  const [ subject, setSubject ] = useState('')
-  const [ year, setYear ] = useState('')
-  const [ mode, setMode ] = useState('')
-  const [ marks, setMarks ] = useState('')
+  const [subject, setSubject] = useState(localStorage.getItem('subject') ? localStorage.getItem('subject') : '' )    
+  const [year, setYear] = useState(localStorage.getItem('year') ? localStorage.getItem('year') : '' )
+  const [mode, setMode] = useState(localStorage.getItem('mode') ? localStorage.getItem('mode') : '')
+  const [marks, setMarks] = useState(localStorage.getItem('marks') ? localStorage.getItem('marks') : '')
 
+  function handleSubject(e) {
+    if (localStorage.getItem('subject') && localStorage.getItem('subject') == 'e') {
+      setSubject(localStorage.getItem('subject'))
+    }
+    else {
+      setSubject(e)
+      localStorage.setItem('subject', e);
+    }
+  }
+
+  function handleYear(e) {
+    if (localStorage.getItem('year') && localStorage.getItem('year') == 'e') {
+      setYear(localStorage.getItem('year'))
+    }
+    else {
+      setYear(e)
+      localStorage.setItem('year', e);
+    }
+  }
+
+  function handleMode(e) {
+    if (localStorage.getItem('mode') && localStorage.getItem('mode') == 'e') {
+      setMode(localStorage.getItem('mode'))
+    }
+    else {
+      setMode(e)
+      localStorage.setItem('mode', e);
+    }
+  }
+
+  function handleMarks(e) {
+    if (localStorage.getItem('marks') && localStorage.getItem('marks') == 'e') {
+      setMarks(localStorage.getItem('marks'))
+    }
+    else {
+      setMarks(e)
+      localStorage.setItem('marks', e);
+    }
+  }
+
+  
   let url = `?department=${department}`
 
   return (
@@ -34,7 +76,7 @@ const Questions = () => {
           <Select
             label="Subject"
             value={subject}
-            onChange={setSubject}
+            onChange={handleSubject}
             vertical
           >
             {subjects.map((subject) => (
@@ -44,7 +86,7 @@ const Questions = () => {
             ))}
           </Select>
 
-          <Select label="Marks" value={marks} onChange={setMarks} vertical>
+          <Select label="Marks" value={marks} onChange={handleMarks} vertical>
             {[1, 2].map((mark) => (
               <option key={mark} value={mark}>
                 {mark}
@@ -54,7 +96,7 @@ const Questions = () => {
         </div>
 
         <div className="col">
-          <Select label="Year" value={year} onChange={setYear} vertical>
+          <Select label="Year" value={year} onChange={handleYear} vertical>
             <option value={Type.SERIES}>Test Series</option>
             <option value={Type.QUIZ}>Quiz</option>
 
@@ -65,7 +107,7 @@ const Questions = () => {
             ))}
           </Select>
 
-          <Select label="Mode" value={mode} onChange={setMode} vertical>
+          <Select label="Mode" value={mode} onChange={handleMode} vertical>
             <option value="answer">Answer</option>
             <option value="choices">Options</option>
           </Select>
