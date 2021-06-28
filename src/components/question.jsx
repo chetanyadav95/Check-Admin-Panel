@@ -24,15 +24,15 @@ const Question = ({ value, onChange, onImages }) => {
   return (
     <div className="mb-3">
       <label className="form-label">Question</label>
-      
-      <textarea rows="5" className="form-control" ref={ref} value={value} onChange={event => onChange(event.target.value)}></textarea>
-      
+
+      <textarea rows="5" className="form-control" ref={ ref } value={ value } onChange={ event => onChange(event.target.value) }></textarea>
+
       <div className="d-flex mt-3">
-        <Button className="me-3 square" onClick={onDash}>&#x0005F;</Button>
-  
-        <Equation inputRef={ref} onEntered={onEquation} />
-  
-        <Image className="ms-3" onUpload={value => onImages(values => [...values, value])} />
+        <Button className="me-3 square" onClick={ onDash }>&#x0005F;</Button>
+
+        <Equation inputRef={ ref } onEntered={ onEquation } />
+
+        <Image className="ms-3" onUpload={ value => onImages(values => [...values, value]) } />
       </div>
     </div>
   )
@@ -56,13 +56,13 @@ const Marks = ({ value, onChange }) => {
   return (
     <div className="mb-3">
       <label className="form-label">Marks</label>
-  
-      <div className="d-flex">
-        <Button className="square" onClick={minusMarks}>-</Button>
 
-        <div className="form-control mx-3 text-center">{value}</div>
-        
-        <Button className="square" onClick={addMarks}>+</Button>
+      <div className="d-flex">
+        <Button className="square" onClick={ minusMarks }>-</Button>
+
+        <div className="form-control mx-3 text-center">{ value }</div>
+
+        <Button className="square" onClick={ addMarks }>+</Button>
       </div>
     </div>
   )
@@ -88,12 +88,12 @@ const Answer = ({ value, onChange, children }) => {
   return (
     <div className="d-flex mb-3">
       <div className="col">
-        <input type="text" className="form-control" ref={ref} value={value} onChange={event => onChange(event.target.value)} />
+        <input type="text" className="form-control" ref={ ref } value={ value } onChange={ event => onChange(event.target.value) } />
       </div>
 
       <div className="ms-3 d-flex">
-        <Equation inputRef={ref} onEntered={onEquation} />
-        {children}
+        <Equation inputRef={ ref } onEntered={ onEquation } />
+        { children }
       </div>
     </div>
   )
@@ -122,15 +122,15 @@ const Choice = ({ choice, onChange }) => {
   return (
     <div className="d-flex mb-3">
       <div className="col">
-        <input type="text" className="form-control" ref={ref} value={text} onChange={event => onChange('text', event.target.value)} />
+        <input type="text" className="form-control" ref={ ref } value={ text } onChange={ event => onChange('text', event.target.value) } />
       </div>
 
       <div className="ms-3 d-flex">
-        <Equation inputRef={ref} onEntered={onEquation} />
-        
-        <Image className="mx-3" onUpload={value => onChange('image', value)} />
+        <Equation inputRef={ ref } onEntered={ onEquation } />
 
-        <Button className="square" color={answer ? 'success' : 'primary'} disabled={!text && !image} onClick={() => onChange('answer', !answer)}>
+        <Image className="mx-3" onUpload={ value => onChange('image', value) } />
+
+        <Button className="square" color={ answer ? 'success' : 'primary' } disabled={ !text && !image } onClick={ () => onChange('answer', !answer) }>
           &#x02713;
         </Button>
       </div>
@@ -150,11 +150,11 @@ Choice.propTypes = {
 const Choices = ({ values, onChange }) => {
   const onEdit = choice => (node, value) => {
     choice[node] = value
-    onChange([ ...values ])
+    onChange([...values])
   }
 
   return values.map((choice, index) => (
-    <Choice key={index} choice={choice} onChange={onEdit(choice)} />
+    <Choice key={ index } choice={ choice } onChange={ onEdit(choice) } />
   ))
 }
 
@@ -164,17 +164,24 @@ Choices.propTypes = {
 }
 
 Choices.NODES = { text: '', image: '', answer: false }
-  
+
 /**
  * Solution to question
  */
 
-const Solution = ({ value, onChange}) => {
+const Solution = ({ value, onChange }) => {
   const ref = useRef()
 
   function onEdit(node, value) {
     onChange(previous => {
       previous[node] = value
+      return { ...previous }
+    })
+  }
+
+  function onImage(value) {
+    onChange(previous => {
+      previous.images.push(value)
       return { ...previous }
     })
   }
@@ -190,25 +197,26 @@ const Solution = ({ value, onChange}) => {
   }
 
   return (
-  <div className="mb-3">
-    <label htmlFor="solution" className="form-label">Solution</label>
-      
-    <textarea id="solution" rows="5" className="form-control" ref={ref} value={value.text} onChange={event => onEdit('text', event.target.value)}></textarea>
-      
-    <div className="d-flex mt-3">
-      <Equation inputRef={ref} onEntered={onEquation} />
+    <div className="mb-3">
+      <label htmlFor="solution" className="form-label">Solution</label>
 
-      <Image className="ms-3" onUpload={value => onEdit('image', value)} />
+      <textarea id="solution" rows="5" className="form-control" ref={ ref } value={ value.text } onChange={ event => onEdit('text', event.target.value) }></textarea>
+
+      <div className="d-flex mt-3">
+        <Equation inputRef={ ref } onEntered={ onEquation } />
+
+        <Image className="ms-3" onUpload={ onImage } />
+      </div>
     </div>
-  </div>
-)}
+  )
+}
 
 Solution.propTypes = {
   value: PropTypes.object,
   onChange: PropTypes.func
 }
 
-Solution.NODES = { text: '', image: '' }
+Solution.NODES = { text: '', image: '', images: [] }
 
 /**
  * Question mode: Answer or Choices
@@ -220,13 +228,13 @@ const Mode = ({ value, onChange }) => (
 
     <div>
       <div className="form-check form-check-inline">
-        <input className="form-check-input" type="radio" name="mode" id="answer" checked={value === Mode.answer} onChange={() => onChange(Mode.answer)} />
+        <input className="form-check-input" type="radio" name="mode" id="answer" checked={ value === Mode.answer } onChange={ () => onChange(Mode.answer) } />
 
         <label className="form-check-label" htmlFor="answer">Answer</label>
       </div>
-      
+
       <div className="form-check form-check-inline">
-        <input className="form-check-input" type="radio" name="mode" id="options" checked={value === Mode.options} onChange={() => onChange(Mode.options)} />
+        <input className="form-check-input" type="radio" name="mode" id="options" checked={ value === Mode.options } onChange={ () => onChange(Mode.options) } />
 
         <label className="form-check-label" htmlFor="options">Options</label>
       </div>
