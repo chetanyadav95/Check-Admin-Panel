@@ -93,7 +93,7 @@ form.horizontal .form-group > .form-label {
   margin: 0;
 }
 
-form.horizontal .form-group > .form-control {
+form.horizontal .form-group > .form-control, form.horizontal .form-group > .form-select {
   width: 250px;
 }
 

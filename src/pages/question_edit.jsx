@@ -76,6 +76,7 @@ const QuestionEdit = () => {
 
   return (
     <Fetch url={QUESTIONS + `?id=${state.id}`} onFetch={setQuestion}>
+      <div>State ID :   { state.id }</div>
       <div className="col h-100 overflow-auto">
         <h4 className="mb3">Edit Question</h4>
 
@@ -163,7 +164,7 @@ const QuestionEdit = () => {
                 ))
               )}
 
-              <Result solution={solution} onChange={setSolution} />
+              <Result solution={solution} onChange={setSolution} oid={state.id}/>
 
               {department && subject && year && (
                 <div className="d-flex justify-content-center mt-3">

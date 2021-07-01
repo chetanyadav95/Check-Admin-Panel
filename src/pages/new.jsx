@@ -94,12 +94,13 @@ const Series = () => {
 
   const [ name, setName ] = useState('')
   const [ time, setTime ] = useState(0)
-  const [ questions, setQuestions ] = useState([])
+  const [questions, setQuestions] = useState([])
+  const [mode, setMode] = useState('')
 
   function onSubmit(event) {
     event.preventDefault()
 
-    const data = { name, time, department, questions }
+    const data = { name, time, department, questions, mode }
 
     post(SERIES + 'new', data, (error, _) => {
       if (error) {
@@ -109,6 +110,7 @@ const Series = () => {
       setName('')
       setTime(0)
       setQuestions([])
+      setMode('')
     })
   }
 
@@ -120,6 +122,12 @@ const Series = () => {
         </Input>
 
         <Time value={time} onChange={setTime} />
+
+        <Select label="Type" value={mode} onChange={ setMode } >
+          <option value="full">Full Length</option>
+          <option value="subject">Subject Wise</option>
+        </Select>
+
       </div>
 
       <hr />
